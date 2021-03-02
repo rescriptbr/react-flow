@@ -6,3 +6,4 @@ npm-debug.log
 src/*.js
 lib
 package-lock.json
+.bs.js
