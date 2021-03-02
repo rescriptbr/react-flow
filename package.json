@@ -1,0 +1,15 @@
+{
+  "name": "bs-react-flow",
+  "version": "0.1.0",
+  "description": "Easily use React Flow with ReScript",
+  "repository": "git@github.com:diogomqbm/rescript-react-flow.git",
+  "author": "Diogo Mafra <diogomafra@protonmail.ch>",
+  "license": "MIT",
+  "devDependencies": {
+    "@rescript/react": "^0.10.1",
+    "bs-platform": "^9.0.0"
+  },
+  "peerDependencies": {
+    "@rescript/react": "^0.10.1"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "react-flow-test",
+  "namespace": true,
+  "reason": {
+    "react-jsx": 3
+  },
+  "refmt": 3,
+  "bs-dependencies": [
+    "@rescript/react"
+  ],
+  "ppx-flags": [],
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
+  "package-specs": {
+    "module": "es6",
+    "in-source": true
+  },
+  "suffix": ".bs.js",
+  "bsc-flags": [
+    "-bs-no-version-header",
+    "-bs-super-errors",
+    "-bs-g"
+  ]
+}
