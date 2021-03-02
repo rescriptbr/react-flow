@@ -7,3 +7,5 @@ src/*.js
 lib
 package-lock.json
 .bs.js
+/example/src/*.bs.js
+*.bs.js
