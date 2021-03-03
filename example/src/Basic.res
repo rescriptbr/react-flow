@@ -37,7 +37,7 @@ let elements = [
 ]
 
 let onLoad = (reactFlowInstance: ReactFlow.onLoadParams<'a>) => {
-  Js.log2("flow loaded: ", reactFlowInstance)
+  reactFlowInstance.fitView({padding: None, includeHiddenNodes: None})
 }
 
 @react.component

@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { make as Basic } from './Basic.bs';
+import { make as Validation } from './Validation.bs';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Basic />
+    <Validation />
   </React.StrictMode>,
   document.getElementById('root')
 );

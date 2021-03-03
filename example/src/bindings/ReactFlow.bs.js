@@ -36,12 +36,15 @@ function addEdge(edgeToAdd, elems) {
               }]);
 }
 
+var Handle = {};
+
 export {
   unwrap ,
   convertElemsToJs ,
   getIdFromElem ,
   removeElements ,
   addEdge ,
+  Handle ,
   
 }
 /* No side effect */

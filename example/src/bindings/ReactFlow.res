@@ -2,7 +2,7 @@ type elementId = string
 
 type transform = (int, int, int)
 
-type position = [#Left | #Top | #Right | #Bottom]
+type position = [#left | #top | #right | #bottom]
 
 type arrowHeadType = [#Arrow | #ArrowClosed]
 
@@ -74,16 +74,11 @@ type edge<'a> = {
   className: string,
 }
 
-@deriving({abstract: light})
 type connection = {
-  @optional
-  source: elementId,
-  @optional
-  target: elementId,
-  @optional
-  sourceHandle: elementId,
-  @optional
-  targetHandle: elementId,
+  source: option<elementId>,
+  target: option<elementId>,
+  sourceHandle: option<elementId>,
+  targetHandle: option<elementId>,
 }
 
 type edgeOrConnection<'a> = Connection(connection) | Edge(edge<'a>)
@@ -103,7 +98,7 @@ type flowTransform = {
   zoom: int,
 }
 
-type fitViewFunc = (~fitViewOptions: fitViewParams=?) => unit
+type fitViewFunc = fitViewParams => unit
 
 type projectFunc = (~position: xyPosition) => xyPosition
 
@@ -154,6 +149,16 @@ type outsiderEdge = {
   targetHandle: option<string>,
 }
 
+type onConnectStartParams = {
+  nodeId: option<elementId>,
+  handleId: option<elementId>,
+  handleType: [#source | #target],
+}
+
+type onConnectStartFunc = (ReactEvent.Mouse.t, onConnectStartParams) => unit
+type onConnectStopFunc = ReactEvent.Mouse.t => unit
+type onConnectEndFunc = ReactEvent.Mouse.t => unit
+
 @module("react-flow-renderer") @react.component
 external make: (
   ~elements: elements<'a>,
@@ -164,6 +169,12 @@ external make: (
   ~onElementsRemove: array<outsiderElement> => unit=?,
   ~onLoad: onLoadParams<'a> => unit=?,
   ~snapGrid: (int, int)=?,
+  ~nodeTypes: 'a=?,
+  ~selectNodesOnDrag: bool=?,
+  ~className: string=?,
+  ~onConnectStart: onConnectStartFunc=?,
+  ~onConnectStop: onConnectStopFunc=?,
+  ~onConnectEnd: onConnectEndFunc=?,
 ) => React.element = "default"
 
 let getIdFromElem = (elem: flowElement<'a>) => {
@@ -195,4 +206,25 @@ let addEdge = (edgeToAdd: outsiderEdge, elems: elements<'a>) => {
     ],
     elems,
   )
+}
+
+module Handle = {
+  type handleType = [#source | #target]
+
+  type onConnectFunc = connection => unit
+
+  type isValidConnectionFunc = connection => bool
+
+  @module("react-flow-renderer") @react.component
+  external make: (
+    @as("type") ~type_: handleType,
+    ~position: position,
+    ~isConnectable: bool=?,
+    ~onConnect: onConnectFunc=?,
+    ~isValidConnection: connection => bool=?,
+    ~id: elementId=?,
+    ~className: string=?,
+    ~style: ReactDOM.Style.t=?,
+    ~children: React.element=?,
+  ) => React.element = "Handle"
 }
