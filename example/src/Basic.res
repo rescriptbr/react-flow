@@ -31,6 +31,9 @@ let elements = [
       (),
     ),
   ),
+  ReactFlow.Edge(
+    ReactFlow.edge(~id="e1-2", ~source="1", ~target="2", ~label="this is an edge label", ()),
+  ),
 ]
 
 let onLoad = (reactFlowInstance: ReactFlow.onLoadParams<'a>) => {
@@ -41,20 +44,12 @@ let onLoad = (reactFlowInstance: ReactFlow.onLoadParams<'a>) => {
 let make = () => {
   let (elems, setElems) = React.useState(() => elements)
   let onElementsRemove = elementsToRemove => {
-    setElems(els => ReactFlow.removeElements(elementsToRemove, ReactFlow.convertElemsToJs(els)))
+    setElems(elems => ReactFlow.removeElements(elementsToRemove, elems))
   }
 
   let onConnect = params => {
-    setElems(elems => {
-      let a = ReactFlow.convertElemsToJs(elems)
-      ReactFlow.addEdge(params, a)
-    })
+    setElems(elems => ReactFlow.addEdge(params, elems))
   }
-
-  React.useEffect1(() => {
-    Js.log(elems)
-    None
-  }, [elems])
 
   <div className="App" style={ReactDOM.Style.make(~height="800px", ~width="1200px", ())}>
     <ReactFlow

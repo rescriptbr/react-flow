@@ -13,7 +13,7 @@ type dimensions = {
   height: int,
 }
 
-@deriving(abstract)
+@deriving({abstract: light})
 type node<'a> = {
   id: elementId,
   position: xyPosition,
@@ -74,7 +74,7 @@ type edge<'a> = {
   className: string,
 }
 
-@deriving(abstract)
+@deriving({abstract: light})
 type connection = {
   @optional
   source: elementId,
@@ -139,20 +139,60 @@ let convertElemsToJs = elems => {
   elems->Belt.Array.map(unwrap)
 }
 
+type outsiderElement = {
+  id: string,
+  target: option<string>,
+  source: option<string>,
+  sourceHandle: option<string>,
+  targetHandle: option<string>,
+}
+
+type outsiderEdge = {
+  source: string,
+  sourceHandle: option<string>,
+  target: string,
+  targetHandle: option<string>,
+}
+
 @module("react-flow-renderer") @react.component
 external make: (
   ~elements: elements<'a>,
   ~children: React.element=?,
   ~onElementsClick: (~event: Dom.mouseEvent=?, ~element: flowElement<'a>=?) => unit=?,
   ~snapToGrid: bool=?,
-  ~onConnect: edgeOrConnection<'a> => unit=?,
-  ~onElementsRemove: elements<'a> => unit=?,
+  ~onConnect: outsiderEdge => unit=?,
+  ~onElementsRemove: array<outsiderElement> => unit=?,
   ~onLoad: onLoadParams<'a> => unit=?,
   ~snapGrid: (int, int)=?,
 ) => React.element = "default"
 
-@module("react-flow-renderer")
-external removeElements: (elements<'a>, elements<'a>) => elements<'a> = "removeElements"
+let getIdFromElem = (elem: flowElement<'a>) => {
+  switch elem {
+  | Edge(elem) => idGet(elem)
+  | Node(elem) => id(elem)
+  }
+}
 
-@module("react-flow-renderer")
-external addEdge: (edgeOrConnection<'a>, elements<'a>) => elements<'a> = "addEdge"
+let removeElements = (elemsToRemove: array<outsiderElement>, elems: elements<'a>): elements<'a> => {
+  let idsToRemove = Js.Array.map(x => x.id, elemsToRemove)
+
+  let shouldRemoveId = id => !Js.Array.includes(id, idsToRemove)
+
+  Js.Array.filter(e => shouldRemoveId(getIdFromElem(e)), elems)
+}
+
+let addEdge = (edgeToAdd: outsiderEdge, elems: elements<'a>) => {
+  Js.Array.concat(
+    [
+      Edge(
+        edge(
+          ~id=`e${edgeToAdd.source}-${edgeToAdd.target}`,
+          ~target=edgeToAdd.target,
+          ~source=edgeToAdd.source,
+          (),
+        ),
+      ),
+    ],
+    elems,
+  )
+}
