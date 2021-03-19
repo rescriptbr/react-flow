@@ -1,6 +1,6 @@
 {
   "name": "rescript-react-flow",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Easily use React Flow with ReScript",
   "repository": "git@github.com:diogomqbm/rescript-react-flow.git",
   "author": "Diogo Mafra <diogomafra@protonmail.ch>",
