@@ -15,9 +15,13 @@ They're also a greate exercise if you're learning ReScript. Feel free to contrib
 
 ## Installing
 1. Install `rescript-react-flow` using npm:
-`npm install --save rescript-react-flow`
+```
+npm install --save rescript-react-flow
+```
 or yarn:
-`yarn add rescript-react-flow`
+```
+yarn add rescript-react-flow
+```
 
 2. Add `rescript-react-flow` as dependency to your `bsconfig.json`: 
 ```json
