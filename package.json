@@ -1,5 +1,5 @@
 {
-  "name": "bs-react-flow",
+  "name": "rescript-react-flow",
   "version": "0.1.0",
   "description": "Easily use React Flow with ReScript",
   "repository": "git@github.com:diogomqbm/rescript-react-flow.git",
