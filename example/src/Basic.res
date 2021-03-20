@@ -1,8 +1,3 @@
-%%raw(`import './App.css'`)
-
-@module("./logo.svg")
-external logo: string = "default"
-
 let elements = [
   ReactFlow.Node(
     ReactFlow.node(
