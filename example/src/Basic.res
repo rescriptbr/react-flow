@@ -1,5 +1,5 @@
 let elements = [
-  ReactFlow.Node(
+  ReactFlow.Types.Node(
     ReactFlow.Node.makeNode(
       ~id="1",
       ~position={x: 250, y: 0},
@@ -8,7 +8,7 @@ let elements = [
       (),
     ),
   ),
-  ReactFlow.Node(
+  ReactFlow.Types.Node(
     ReactFlow.Node.makeNode(
       ~id="2",
       ~position={x: 100, y: 100},
@@ -16,7 +16,7 @@ let elements = [
       (),
     ),
   ),
-  ReactFlow.Node(
+  ReactFlow.Types.Node(
     ReactFlow.Node.makeNode(
       ~id="3",
       ~data={"label": React.string("teste3")},
@@ -31,7 +31,7 @@ let elements = [
       (),
     ),
   ),
-  ReactFlow.Edge(
+  ReactFlow.Types.Edge(
     ReactFlow.Edge.makeEdge(
       ~id="e1-2",
       ~source="1",
@@ -42,7 +42,7 @@ let elements = [
   ),
 ]
 
-let onLoad = (reactFlowInstance: ReactFlow.onLoadParams<'a>) => {
+let onLoad = (reactFlowInstance: ReactFlow.Types.onLoadParams<'a>) => {
   reactFlowInstance.fitView({padding: None, includeHiddenNodes: None})
 }
 
@@ -50,16 +50,22 @@ let onLoad = (reactFlowInstance: ReactFlow.onLoadParams<'a>) => {
 let make = () => {
   let (elems, setElems) = React.useState(() => elements)
   let onElementsRemove = elementsToRemove => {
-    setElems(elems => ReactFlow.removeElements(elementsToRemove, elems))
+    setElems(elems =>
+      ReactFlow_Utils.rawToElements(
+        ReactFlow_Utils.removeElements(~elemsToRemove=elementsToRemove, ~elems),
+      )
+    )
   }
 
   let onConnect = params => {
-    setElems(elems => ReactFlow.addEdge(params, elems))
+    setElems(elems =>
+      ReactFlow_Utils.rawToElements(ReactFlow_Utils.addEdge(~elemToAdd=params, ~elems))
+    )
   }
 
   <div className="App" style={ReactDOM.Style.make(~height="800px", ~width="1200px", ())}>
     <ReactFlow
-      elements={elems->ReactFlow.convertElemsToJs}
+      elements={elems->ReactFlow.Utils.elementsToRaw}
       onElementsRemove
       onConnect
       onLoad

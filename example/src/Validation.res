@@ -1,22 +1,21 @@
 %%raw(`import "./validation.css"`)
 
 let elements = [
-  ReactFlow.Node(
+  ReactFlow.Types.Node(
     ReactFlow.Node.makeNode(~id="0", ~type_="custominput", ~position={x: 0, y: 150}, ()),
   ),
-  ReactFlow.Node(
+  ReactFlow.Types.Node(
     ReactFlow.Node.makeNode(~id="A", ~type_="customnode", ~position={x: 250, y: 0}, ()),
   ),
-  ReactFlow.Node(
+  ReactFlow.Types.Node(
     ReactFlow.Node.makeNode(~id="B", ~type_="customnode", ~position={x: 250, y: 150}, ()),
   ),
-  ReactFlow.Node(
+  ReactFlow.Types.Node(
     ReactFlow.Node.makeNode(~id="C", ~type_="customnode", ~position={x: 250, y: 300}, ~data=2, ()),
   ),
 ]
 
-let isValidConnection = (connection: ReactFlow.connection) => {
-  Js.log("entrou")
+let isValidConnection = (connection: ReactFlow.Types.connection) => {
   Belt.Option.getExn(connection.target) === "B"
 }
 
@@ -50,7 +49,7 @@ let nodeTypes = {
   "customnode": CustomNode.make,
 }
 
-let onLoad = (reactFlowInstance: ReactFlow.onLoadParams<'a>) => {
+let onLoad = (reactFlowInstance: ReactFlow.Types.onLoadParams<'a>) => {
   reactFlowInstance.fitView({padding: None, includeHiddenNodes: None})
 }
 
@@ -58,13 +57,14 @@ let onLoad = (reactFlowInstance: ReactFlow.onLoadParams<'a>) => {
 let make = () => {
   let (elems, setElems) = React.useState(() => elements)
   let onConnect = params => {
-    Js.log(params)
-    setElems(els => ReactFlow.addEdge(params, els))
+    setElems(elems =>
+      ReactFlow_Utils.rawToElements(ReactFlow_Utils.addEdge(~elemToAdd=params, ~elems))
+    )
   }
 
   <div className="App" style={ReactDOM.Style.make(~height="800px", ~width="1200px", ())}>
     <ReactFlow
-      elements={elems->ReactFlow.convertElemsToJs}
+      elements={elems->ReactFlow.Utils.elementsToRaw}
       onConnect
       onConnectEnd
       onConnectStart
