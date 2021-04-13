@@ -13,65 +13,73 @@ type dimensions = {
   height: int,
 }
 
-@deriving({abstract: light})
-type node<'a> = {
-  id: elementId,
-  position: xyPosition,
-  @optional @as("type") type_: string,
-  @optional
-  data: 'a,
-  @optional
-  style: ReactDOM.Style.t,
-  @optional
-  className: string,
-  @optional
-  targetPosition: position,
-  @optional
-  sourcePosition: position,
-  @optional
-  isHidden: bool,
-  @optional
-  draggable: bool,
-  @optional
-  selectable: bool,
-  @optional
-  connectable: bool,
+module Node = {
+  @deriving(abstract)
+  type t<'a> = {
+    id: elementId,
+    position: xyPosition,
+    @optional @as("type") type_: string,
+    @optional
+    data: 'a,
+    @optional
+    style: ReactDOM.Style.t,
+    @optional
+    className: string,
+    @optional
+    targetPosition: position,
+    @optional
+    sourcePosition: position,
+    @optional
+    isHidden: bool,
+    @optional
+    draggable: bool,
+    @optional
+    selectable: bool,
+    @optional
+    connectable: bool,
+  }
+
+  let makeNode = t
 }
 
-@deriving(abstract)
-type edge<'a> = {
-  id: elementId,
-  source: elementId,
-  target: elementId,
-  @optional @as("type") type_: string,
-  @optional
-  sourceHandle: elementId,
-  @optional
-  targetHandle: elementId,
-  @optional
-  label: string,
-  @optional
-  labelStyle: ReactDOM.Style.t,
-  @optional
-  labelShowBg: bool,
-  @optional
-  labelBgStyle: ReactDOM.Style.t,
-  @optional
-  labelBdPadding: (int, int),
-  @optional
-  labelBgBorderRadius: int,
-  @optional
-  style: ReactDOM.Style.t,
-  @optional
-  animated: bool,
-  @optional
-  arrowHeadType: arrowHeadType,
-  @optional
-  isHidden: bool,
-  @optional
-  data: 'a,
-  @optional
-  className: string,
+module Edge = {
+  @deriving(abstract)
+  type t<'a> = {
+    id: elementId,
+    source: elementId,
+    target: elementId,
+    @optional @as("type") type_: string,
+    @optional
+    sourceHandle: elementId,
+    @optional
+    targetHandle: elementId,
+    @optional
+    label: string,
+    @optional
+    labelStyle: ReactDOM.Style.t,
+    @optional
+    labelShowBg: bool,
+    @optional
+    labelBgStyle: ReactDOM.Style.t,
+    @optional
+    labelBdPadding: (int, int),
+    @optional
+    labelBgBorderRadius: int,
+    @optional
+    style: ReactDOM.Style.t,
+    @optional
+    animated: bool,
+    @optional
+    arrowHeadType: arrowHeadType,
+    @optional
+    isHidden: bool,
+    @optional
+    data: 'a,
+    @optional
+    className: string,
+  }
+
+  let makeEdge = t
 }
 
 type connection = {
@@ -81,9 +89,9 @@ type connection = {
   targetHandle: option<elementId>,
 }
 
-type edgeOrConnection<'a> = Connection(connection) | Edge(edge<'a>)
+type edgeOrConnection<'a> = Connection(connection) | Edge(Edge.t<'a>)
 
-type flowElement<'a> = Node(node<'a>) | Edge(edge<'a>)
+type flowElement<'a> = Node(Node.t<'a>) | Edge(Edge.t<'a>)
 
 type elements<'a> = array<flowElement<'a>>
 
@@ -179,8 +187,8 @@ external make: (
 
 let getIdFromElem = (elem: flowElement<'a>) => {
   switch elem {
-  | Edge(elem) => idGet(elem)
-  | Node(elem) => id(elem)
+  | Edge(elem) => Edge.idGet(elem)
+  | Node(elem) => Node.idGet(elem)
   }
 }
 
@@ -196,8 +204,11 @@ let addEdge = (edgeToAdd: outsiderEdge, elems: elements<'a>) => {
   Js.Array.concat(
     [
       Edge(
-        edge(
-          ~id=`e${edgeToAdd.source}-${edgeToAdd.target}`,
+        Edge.makeEdge(
+          ~id=`reactflow__edge-${edgeToAdd.source}${Belt.Option.getWithDefault(
+              edgeToAdd.sourceHandle,
+              "",
+            )}-${edgeToAdd.target}${Belt.Option.getWithDefault(edgeToAdd.targetHandle, "")}`,
           ~target=edgeToAdd.target,
           ~source=edgeToAdd.source,
           (),
@@ -217,7 +228,7 @@ module Handle = {
 
   @module("react-flow-renderer") @react.component
   external make: (
-    @as("type") ~type_: handleType,
+    @as("type") ~_type: handleType,
     ~position: position,
     ~isConnectable: bool=?,
     ~onConnect: onConnectFunc=?,

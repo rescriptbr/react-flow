@@ -1,6 +1,6 @@
 let elements = [
   ReactFlow.Node(
-    ReactFlow.node(
+    ReactFlow.Node.makeNode(
       ~id="1",
       ~position={x: 250, y: 0},
       ~data={"label": React.string("test")},
@@ -9,10 +9,15 @@ let elements = [
     ),
   ),
   ReactFlow.Node(
-    ReactFlow.node(~id="2", ~position={x: 100, y: 100}, ~data={"label": React.string("test2")}, ()),
+    ReactFlow.Node.makeNode(
+      ~id="2",
+      ~position={x: 100, y: 100},
+      ~data={"label": React.string("test2")},
+      (),
+    ),
   ),
   ReactFlow.Node(
-    ReactFlow.node(
+    ReactFlow.Node.makeNode(
       ~id="3",
       ~data={"label": React.string("teste3")},
       ~position={x: 400, y: 100},
@@ -27,7 +32,13 @@ let elements = [
     ),
   ),
   ReactFlow.Edge(
-    ReactFlow.edge(~id="e1-2", ~source="1", ~target="2", ~label="this is an edge label", ()),
+    ReactFlow.Edge.makeEdge(
+      ~id="e1-2",
+      ~source="1",
+      ~target="2",
+      ~label="this is an edge label",
+      (),
+    ),
   ),
 ]
 
