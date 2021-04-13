@@ -12,9 +12,12 @@ external jsRemoveElements: (rawElements, rawElements) => rawElements = "removeEl
 @module("react-flow-renderer")
 external jsAddEdge: (rawElement, rawElements) => rawElements = "addEdge"
 
-external rawToNode: rawElement => Node.t<'a> = "%identity"
+@module("react-flow-renderer")
+external jsUpdateEdge: (rawElement, rawElement, rawElements) => rawElements = "updateEdge"
 
-external rawToEdge: rawElement => Edge.t<'a> = "%identity"
+external rawToNode: rawElement => Node.t = "%identity"
+
+external rawToEdge: rawElement => Edge.t = "%identity"
 
 external elemToRaw: 'a => rawElement = "%identity"
 
@@ -43,10 +46,14 @@ let rawToElements = rawElements => {
   })
 }
 
-let addEdge = (~elemToAdd: rawElement, ~elems: elements<'a>) => {
+let addEdge = (~elemToAdd: rawElement, ~elems: elements) => {
   jsAddEdge(elemToAdd, elementsToRaw(elems))
 }
 
-let removeElements = (~elemsToRemove: rawElements, ~elems: elements<'a>) => {
+let removeElements = (~elemsToRemove: rawElements, ~elems: elements) => {
   jsRemoveElements(elemsToRemove, elementsToRaw(elems))
+}
+
+let updateEdge = (~oldEdge: Edge.t, ~newConnection: connection, ~elems: elements) => {
+  jsUpdateEdge(elemToRaw(oldEdge), elemToRaw(newConnection), elementsToRaw(elems))
 }

@@ -18,13 +18,17 @@ type dimensions = {
 }
 
 module Node = {
+  type data
+
+  external toData: 'anything => data = "%identity"
+
   @deriving(abstract)
-  type t<'a> = {
+  type t = {
     id: elementId,
     position: xyPosition,
     @optional @as("type") type_: string,
     @optional
-    data: 'a,
+    data: data,
     @optional
     style: ReactDOM.Style.t,
     @optional
@@ -47,8 +51,12 @@ module Node = {
 }
 
 module Edge = {
+  type data
+
+  external toData: 'anything => data = "%identity"
+
   @deriving(abstract)
-  type t<'a> = {
+  type t = {
     id: elementId,
     source: elementId,
     target: elementId,
@@ -78,7 +86,7 @@ module Edge = {
     @optional
     isHidden: bool,
     @optional
-    data: 'a,
+    data: data,
     @optional
     className: string,
   }
@@ -93,11 +101,11 @@ type connection = {
   targetHandle: option<elementId>,
 }
 
-type edgeOrConnection<'a> = Connection(connection) | Edge(Edge.t<'a>)
+type edgeOrConnection = Connection(connection) | Edge(Edge.t)
 
-type flowElement<'a> = Node(Node.t<'a>) | Edge(Edge.t<'a>)
+type flowElement = Node(Node.t) | Edge(Edge.t)
 
-type elements<'a> = array<flowElement<'a>>
+type elements = array<flowElement>
 
 type fitViewParams = {
   padding: option<int>,
@@ -114,23 +122,23 @@ type fitViewFunc = fitViewParams => unit
 
 type projectFunc = (~position: xyPosition) => xyPosition
 
-type flowExportObj<'a> = {
-  elements: elements<'a>,
+type flowExportObj = {
+  elements: elements,
   position: (int, int),
   zoom: int,
 }
 
-type toObjFunc<'a> = unit => flowExportObj<'a>
+type toObjFunc = unit => flowExportObj
 
-type onLoadParams<'a> = {
+type onLoadParams = {
   zoomIn: unit => unit,
   zoomOut: unit => unit,
   zoomTo: (~zoomLevel: int) => unit,
   fitView: fitViewFunc,
   project: projectFunc,
-  getElements: unit => elements<'a>,
+  getElements: unit => elements,
   setTransform: (~transform: flowTransform) => unit,
-  toObject: toObjFunc<'a>,
+  toObject: toObjFunc,
 }
 
 type onConnectStartParams = {
@@ -155,15 +163,3 @@ module MiniMap = {
   type t
   type stringFunc = rawElement => string
 }
-
-@module("react-flow-renderer")
-external isEdge: rawElement => bool = "isEdge"
-
-@module("react-flow-renderer")
-external isNode: rawElement => bool = "isNode"
-
-@module("react-flow-renderer")
-external jsRemoveElements: (rawElements, rawElements) => rawElements = "removeElements"
-
-@module("react-flow-renderer")
-external jsAddEdge: (rawElement, rawElements) => rawElements = "addEdge"

@@ -11,7 +11,7 @@ let elements = [
     ReactFlow.Node.makeNode(~id="B", ~type_="customnode", ~position={x: 250, y: 150}, ()),
   ),
   ReactFlow.Types.Node(
-    ReactFlow.Node.makeNode(~id="C", ~type_="customnode", ~position={x: 250, y: 300}, ~data=2, ()),
+    ReactFlow.Node.makeNode(~id="C", ~type_="customnode", ~position={x: 250, y: 300}, ()),
   ),
 ]
 
@@ -49,7 +49,7 @@ let nodeTypes = {
   "customnode": CustomNode.make,
 }
 
-let onLoad = (reactFlowInstance: ReactFlow.Types.onLoadParams<'a>) => {
+let onLoad = (reactFlowInstance: ReactFlow.Types.onLoadParams) => {
   reactFlowInstance.fitView({padding: None, includeHiddenNodes: None})
 }
 

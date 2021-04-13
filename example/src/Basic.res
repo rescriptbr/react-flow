@@ -3,7 +3,7 @@ let elements = [
     ReactFlow.Node.makeNode(
       ~id="1",
       ~position={x: 250, y: 0},
-      ~data={"label": React.string("test")},
+      ~data=ReactFlow.Node.toData({"label": React.string("test")}),
       ~type_="input",
       (),
     ),
@@ -12,7 +12,7 @@ let elements = [
     ReactFlow.Node.makeNode(
       ~id="2",
       ~position={x: 100, y: 100},
-      ~data={"label": React.string("test2")},
+      ~data=ReactFlow.Node.toData({"label": React.string("test2")}),
       ~type_="output",
       (),
     ),
@@ -20,7 +20,7 @@ let elements = [
   ReactFlow.Types.Node(
     ReactFlow.Node.makeNode(
       ~id="3",
-      ~data={"label": React.string("teste3")},
+      ~data=ReactFlow.Node.toData({"label": React.string("test3")}),
       ~position={x: 400, y: 100},
       ~type_="default",
       ~style=ReactDOM.Style.make(
@@ -39,12 +39,13 @@ let elements = [
       ~source="1",
       ~target="2",
       ~label="this is an edge label",
+      ~data=ReactFlow.Edge.toData("some other data"),
       (),
     ),
   ),
 ]
 
-let onLoad = (reactFlowInstance: ReactFlow.Types.onLoadParams<'a>) => {
+let onLoad = (reactFlowInstance: ReactFlow.Types.onLoadParams) => {
   reactFlowInstance.fitView({padding: None, includeHiddenNodes: None})
 }
 

@@ -14,7 +14,7 @@ external make: (
   ~snapToGrid: bool=?,
   ~onConnect: Types.rawElement => unit=?,
   ~onElementsRemove: Types.rawElements => unit=?,
-  ~onLoad: Types.onLoadParams<'a> => unit=?,
+  ~onLoad: Types.onLoadParams => unit=?,
   ~snapGrid: (int, int)=?,
   ~nodeTypes: 'weakNodeType=?,
   ~selectNodesOnDrag: bool=?,
