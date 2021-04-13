@@ -3,6 +3,12 @@
 
 var Handle = {};
 
+var MiniMap = {};
+
+var Controls = {};
+
+var Background = {};
+
 var Types;
 
 var Utils;
@@ -17,6 +23,9 @@ export {
   $$Node ,
   Edge ,
   Handle ,
+  MiniMap ,
+  Controls ,
+  Background ,
   
 }
 /* No side effect */

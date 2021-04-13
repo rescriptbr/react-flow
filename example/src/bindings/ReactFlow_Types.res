@@ -151,6 +151,11 @@ module Handle = {
   type isValidConnectionFunc = connection => bool
 }
 
+module MiniMap = {
+  type t
+  type stringFunc = rawElement => string
+}
+
 @module("react-flow-renderer")
 external isEdge: rawElement => bool = "isEdge"
 

@@ -13,6 +13,7 @@ let elements = [
       ~id="2",
       ~position={x: 100, y: 100},
       ~data={"label": React.string("test2")},
+      ~type_="output",
       (),
     ),
   ),
@@ -21,6 +22,7 @@ let elements = [
       ~id="3",
       ~data={"label": React.string("teste3")},
       ~position={x: 400, y: 100},
+      ~type_="default",
       ~style=ReactDOM.Style.make(
         ~color="#333",
         ~background="#D6D5E6",
@@ -70,7 +72,20 @@ let make = () => {
       onConnect
       onLoad
       snapToGrid=true
-      snapGrid=(15, 15)
-    />
+      snapGrid=(15, 15)>
+      <ReactFlow.Controls />
+      <ReactFlow.Background variant=#lines />
+      <ReactFlow.MiniMap
+        nodeColor={ReactFlow.Utils.miniMapStringFunc(n => {
+          let node = ReactFlow.Utils.rawToNode(n)
+          switch ReactFlow.Node.type_Get(node) {
+          | Some("input") => "#0041d0"
+          | Some("output") => "#ff0072"
+          | Some("default") => "#1a192b"
+          | _ => "#eee"
+          }
+        })}
+      />
+    </ReactFlow>
   </div>
 }

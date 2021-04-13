@@ -18,6 +18,10 @@ external rawToEdge: rawElement => Edge.t<'a> = "%identity"
 
 external elemToRaw: 'a => rawElement = "%identity"
 
+external miniMapString: string => MiniMap.t = "%identity"
+
+external miniMapStringFunc: MiniMap.stringFunc => MiniMap.t = "%identity"
+
 let unwrapElem = elem => {
   switch elem {
   | Node(elem) => elemToRaw(elem)
