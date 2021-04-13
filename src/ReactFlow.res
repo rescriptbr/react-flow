@@ -10,7 +10,7 @@ module Edge = Types.Edge
 external make: (
   ~elements: Types.rawElements,
   ~children: React.element=?,
-  ~onElementsClick: (~event: Dom.mouseEvent=?, ~element: Types.flowElement<'a>=?) => unit=?,
+  ~onElementsClick: (~event: Dom.mouseEvent=?, ~element: Types.rawElement=?) => unit=?,
   ~snapToGrid: bool=?,
   ~onConnect: Types.rawElement => unit=?,
   ~onElementsRemove: Types.rawElements => unit=?,
@@ -37,4 +37,42 @@ module Handle = {
     ~style: ReactDOM.Style.t=?,
     ~children: React.element=?,
   ) => React.element = "Handle"
+}
+
+module MiniMap = {
+  @module("react-flow-renderer") @react.component
+  external make: (
+    ~nodeColor: Types.MiniMap.t=?,
+    ~nodeStrokeColor: Types.MiniMap.t=?,
+    ~nodeClassName: Types.MiniMap.t=?,
+    ~nodeBorderRadius: float=?,
+    ~nodeStrokeWidth: float=?,
+    ~maskColor: string=?,
+  ) => React.element = "MiniMap"
+}
+
+module Controls = {
+  @module("react-flow-renderer") @react.component
+  external make: (
+    ~showZoom: bool=?,
+    ~showFitView: bool=?,
+    ~showInteractive: bool=?,
+    ~fitViewParams: Types.fitViewParams=?,
+    ~onZoomIn: unit => unit=?,
+    ~onZoomOut: unit => unit=?,
+    ~onFitView: unit => unit=?,
+    ~onInteractiveChange: (~interactiveStatus: bool) => unit=?,
+  ) => React.element = "Controls"
+}
+
+module Background = {
+  type backgroundVariant = [#lines | #dots]
+
+  @module("react-flow-renderer") @react.component
+  external make: (
+    ~variant: backgroundVariant=?,
+    ~gap: float=?,
+    ~color: string=?,
+    ~size: float=?,
+  ) => React.element = "Background"
 }
