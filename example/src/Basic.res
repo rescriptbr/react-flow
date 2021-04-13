@@ -51,15 +51,15 @@ let make = () => {
   let (elems, setElems) = React.useState(() => elements)
   let onElementsRemove = elementsToRemove => {
     setElems(elems =>
-      ReactFlow_Utils.rawToElements(
-        ReactFlow_Utils.removeElements(~elemsToRemove=elementsToRemove, ~elems),
+      ReactFlow.Utils.rawToElements(
+        ReactFlow.Utils.removeElements(~elemsToRemove=elementsToRemove, ~elems),
       )
     )
   }
 
   let onConnect = params => {
     setElems(elems =>
-      ReactFlow_Utils.rawToElements(ReactFlow_Utils.addEdge(~elemToAdd=params, ~elems))
+      ReactFlow.Utils.rawToElements(ReactFlow.Utils.addEdge(~elemToAdd=params, ~elems))
     )
   }
 
