@@ -53,11 +53,11 @@ let onLoad = (reactFlowInstance: ReactFlow.Types.onLoadParams) => {
 let make = () => {
   let (elems, setElems) = React.useState(() => elements)
   let onElementsRemove = elementsToRemove => {
-    setElems(elems => ReactFlow.Utils.removeElements(~elemsToRemove=elementsToRemove, ~elems))
+    setElems(elems => ReactFlow.Utils.removeElements(elementsToRemove, elems))
   }
 
-  let onConnect = params => {
-    setElems(elems => ReactFlow.Utils.addEdge(~elemToAdd=params, ~elems))
+  let onConnect = newEdgeParams => {
+    setElems(elems => ReactFlow.Utils.addEdge(newEdgeParams, elems))
   }
 
   <div className="App" style={ReactDOM.Style.make(~height="800px", ~width="1200px", ())}>

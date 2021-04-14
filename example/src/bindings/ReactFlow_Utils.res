@@ -61,12 +61,12 @@ let rawToElements = rawElements => {
   })
 }
 
-let addEdge = (~elemToAdd: rawElement, ~elems: elements) => {
-  rawToElements(jsAddEdge(elemToAdd, elementsToRaw(elems)))
+let addEdge = (rawElement, elements) => {
+  rawToElements(jsAddEdge(rawElement, elementsToRaw(elements)))
 }
 
-let removeElements = (~elemsToRemove: rawElements, ~elems: elements) => {
-  rawToElements(jsRemoveElements(elemsToRemove, elementsToRaw(elems)))
+let removeElements = (rawElements, elements) => {
+  rawToElements(jsRemoveElements(rawElements, elementsToRaw(elements)))
 }
 
 let updateEdge = (~oldEdge: Edge.t, ~newConnection: connection, ~elems: elements) => {
