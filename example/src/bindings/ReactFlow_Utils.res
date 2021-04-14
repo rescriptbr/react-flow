@@ -15,6 +15,25 @@ external jsAddEdge: (rawElement, rawElements) => rawElements = "addEdge"
 @module("react-flow-renderer")
 external jsUpdateEdge: (rawElement, rawElement, rawElements) => rawElements = "updateEdge"
 
+@module("react-flow-renderer")
+external jsGetOutgoers: (rawElement, rawElements) => rawElements = "getOutgoers"
+
+@module("react-flow-renderer")
+external jsGetIncomers: (rawElement, rawElements) => rawElements = "getIncomers"
+
+@module("react-flow-renderer")
+external jsGetConnectedEdges: (rawElements, rawElements) => rawElements = "getConnectedEdges"
+
+@module("react-flow-renderer")
+external getTransformForBounds: (
+  ~bounds: rect,
+  ~width: float,
+  ~height: float,
+  ~minZoom: float,
+  ~maxZoom: float,
+  ~padding: float=?,
+) => transform = "getTransformForBounds"
+
 external rawToNode: rawElement => Node.t = "%identity"
 
 external rawToEdge: rawElement => Edge.t = "%identity"
@@ -47,13 +66,28 @@ let rawToElements = rawElements => {
 }
 
 let addEdge = (~elemToAdd: rawElement, ~elems: elements) => {
-  jsAddEdge(elemToAdd, elementsToRaw(elems))
+  rawToElements(jsAddEdge(elemToAdd, elementsToRaw(elems)))
 }
 
 let removeElements = (~elemsToRemove: rawElements, ~elems: elements) => {
-  jsRemoveElements(elemsToRemove, elementsToRaw(elems))
+  rawToElements(jsRemoveElements(elemsToRemove, elementsToRaw(elems)))
 }
 
 let updateEdge = (~oldEdge: Edge.t, ~newConnection: connection, ~elems: elements) => {
-  jsUpdateEdge(elemToRaw(oldEdge), elemToRaw(newConnection), elementsToRaw(elems))
+  rawToElements(jsUpdateEdge(elemToRaw(oldEdge), elemToRaw(newConnection), elementsToRaw(elems)))
+}
+
+let getOutgoers = (~node: Node.t, ~elems: elements): array<Node.t> => {
+  jsGetOutgoers(elemToRaw(node), elementsToRaw(elems))->Belt.Array.map(rawToNode)
+}
+
+let getIncomers = (~node: Node.t, ~elems: elements): array<Node.t> => {
+  jsGetIncomers(elemToRaw(node), elementsToRaw(elems))->Belt.Array.map(rawToNode)
+}
+
+let getConnectedEdges = (~nodes: array<Node.t>, ~edges: array<Edge.t>): array<Edge.t> => {
+  jsGetConnectedEdges(
+    elementsToRaw(nodes->Belt.Array.map(n => Node(n))),
+    elementsToRaw(edges->Belt.Array.map(e => Edge(e))),
+  )->Belt.Array.map(rawToEdge)
 }

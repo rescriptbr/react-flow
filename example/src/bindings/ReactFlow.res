@@ -45,8 +45,8 @@ module MiniMap = {
     ~nodeColor: Types.MiniMap.t=?,
     ~nodeStrokeColor: Types.MiniMap.t=?,
     ~nodeClassName: Types.MiniMap.t=?,
-    ~nodeBorderRadius: float=?,
-    ~nodeStrokeWidth: float=?,
+    ~nodeBorderRadius: int=?,
+    ~nodeStrokeWidth: int=?,
     ~maskColor: string=?,
   ) => React.element = "MiniMap"
 }
@@ -71,8 +71,8 @@ module Background = {
   @module("react-flow-renderer") @react.component
   external make: (
     ~variant: backgroundVariant=?,
-    ~gap: float=?,
+    ~gap: int=?,
     ~color: string=?,
-    ~size: float=?,
+    ~size: int=?,
   ) => React.element = "Background"
 }

@@ -17,6 +17,13 @@ type dimensions = {
   height: int,
 }
 
+type rect = {
+  x: int,
+  y: int,
+  width: int,
+  height: int,
+}
+
 module Node = {
   type data
 

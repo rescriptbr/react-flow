@@ -53,17 +53,11 @@ let onLoad = (reactFlowInstance: ReactFlow.Types.onLoadParams) => {
 let make = () => {
   let (elems, setElems) = React.useState(() => elements)
   let onElementsRemove = elementsToRemove => {
-    setElems(elems =>
-      ReactFlow.Utils.rawToElements(
-        ReactFlow.Utils.removeElements(~elemsToRemove=elementsToRemove, ~elems),
-      )
-    )
+    setElems(elems => ReactFlow.Utils.removeElements(~elemsToRemove=elementsToRemove, ~elems))
   }
 
   let onConnect = params => {
-    setElems(elems =>
-      ReactFlow.Utils.rawToElements(ReactFlow.Utils.addEdge(~elemToAdd=params, ~elems))
-    )
+    setElems(elems => ReactFlow.Utils.addEdge(~elemToAdd=params, ~elems))
   }
 
   <div className="App" style={ReactDOM.Style.make(~height="800px", ~width="1200px", ())}>
@@ -75,7 +69,7 @@ let make = () => {
       snapToGrid=true
       snapGrid=(15, 15)>
       <ReactFlow.Controls />
-      <ReactFlow.Background variant=#lines />
+      <ReactFlow.Background variant=#lines color="#aaa" gap={16} />
       <ReactFlow.MiniMap
         nodeColor={ReactFlow.Utils.miniMapStringFunc(n => {
           let node = ReactFlow.Utils.rawToNode(n)
@@ -86,6 +80,8 @@ let make = () => {
           | _ => "#eee"
           }
         })}
+        nodeStrokeColor={ReactFlow.Utils.miniMapString("#fff")}
+        nodeBorderRadius={2}
       />
     </ReactFlow>
   </div>

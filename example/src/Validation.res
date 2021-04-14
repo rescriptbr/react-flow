@@ -57,9 +57,7 @@ let onLoad = (reactFlowInstance: ReactFlow.Types.onLoadParams) => {
 let make = () => {
   let (elems, setElems) = React.useState(() => elements)
   let onConnect = params => {
-    setElems(elems =>
-      ReactFlow.Utils.rawToElements(ReactFlow.Utils.addEdge(~elemToAdd=params, ~elems))
-    )
+    setElems(elems => ReactFlow.Utils.addEdge(~elemToAdd=params, ~elems))
   }
 
   <div className="App" style={ReactDOM.Style.make(~height="800px", ~width="1200px", ())}>
