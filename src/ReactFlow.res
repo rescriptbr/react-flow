@@ -42,9 +42,9 @@ module Handle = {
 module MiniMap = {
   @module("react-flow-renderer") @react.component
   external make: (
-    ~nodeColor: Types.MiniMap.t=?,
-    ~nodeStrokeColor: Types.MiniMap.t=?,
-    ~nodeClassName: Types.MiniMap.t=?,
+    ~nodeColor: Types.MiniMap.stringFunc=?,
+    ~nodeStrokeColor: Types.MiniMap.stringFunc=?,
+    ~nodeClassName: Types.MiniMap.stringFunc=?,
     ~nodeBorderRadius: int=?,
     ~nodeStrokeWidth: int=?,
     ~maskColor: string=?,

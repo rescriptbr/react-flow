@@ -71,16 +71,15 @@ let make = () => {
       <ReactFlow.Controls />
       <ReactFlow.Background variant=#lines color="#aaa" gap={16} />
       <ReactFlow.MiniMap
-        nodeColor={ReactFlow.Utils.miniMapStringFunc(n => {
-          let node = ReactFlow.Utils.rawToNode(n)
-          switch ReactFlow.Node.type_Get(node) {
+        nodeColor={n => {
+          switch ReactFlow.Node.type_Get(n) {
           | Some("input") => "#0041d0"
           | Some("output") => "#ff0072"
           | Some("default") => "#1a192b"
           | _ => "#eee"
           }
-        })}
-        nodeStrokeColor={ReactFlow.Utils.miniMapString("#fff")}
+        }}
+        nodeStrokeColor={_ => "#fff"}
         nodeBorderRadius={2}
       />
     </ReactFlow>

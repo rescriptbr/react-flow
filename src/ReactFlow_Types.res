@@ -167,6 +167,5 @@ module Handle = {
 }
 
 module MiniMap = {
-  type t
-  type stringFunc = rawElement => string
+  type stringFunc = Node.t => string
 }
