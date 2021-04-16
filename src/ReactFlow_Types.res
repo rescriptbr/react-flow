@@ -169,7 +169,7 @@ type onConnectStartParams = {
   handleType: [#source | #target],
 }
 
-type translateExtent = array<(int, int)>
+type translateExtent = ((int, int), (int, int))
 
 type connectionMode = [#strict | #loose]
 

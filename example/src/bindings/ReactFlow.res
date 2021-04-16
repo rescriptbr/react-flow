@@ -95,3 +95,42 @@ external useZoomPanHelper: unit => Types.zoomPanHelperFunctions = "useZoomPanHel
 
 @module("react-flow-renderer")
 external useUpdateNodeInternals: unit => Types.updateNodeInternals = "useUpdatenodeInternals"
+
+@module("react-flow-renderer")
+external getBezierPath: (
+  ~sourceX: int,
+  ~sourceY: int,
+  ~sourcePosition: Types.position=?,
+  ~targetX: int,
+  ~targetY: int,
+  ~targetPosition: Types.position=?,
+  ~centerX: int=?,
+  ~centerY: int=?,
+) => React.element = "getBezierPath"
+
+@module("react-flow-renderer")
+external getSmoothStepPath: (
+  ~sourceX: int,
+  ~sourceY: int,
+  ~sourcePosition: Types.position=?,
+  ~targetX: int,
+  ~targetY: int,
+  ~targetPosition: Types.position=?,
+  ~borderRadius: int=?,
+  ~centerX: int=?,
+  ~centerY: int=?,
+) => string = "getSmoothStepPath"
+
+@module("react-flow-renderer")
+external getMarkerEnd: (~arrowHeadType: Types.arrowHeadType=?, ~markerEndId: string=?) => string =
+  "getMarkerEnd"
+
+@module("react-flow-renderer")
+external getCenter: (
+  ~sourceX: int,
+  ~sourceY: int,
+  ~targetX: int,
+  ~targetY: int,
+  ~sourcePosition: Types.position=?,
+  ~targetPosition: Types.position=?,
+) => (int, int, int, int) = "getCenter"
