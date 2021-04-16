@@ -17,6 +17,8 @@ external make: (
   ~onLoad: Types.onLoadParams => unit=?,
   ~snapGrid: (int, int)=?,
   ~nodeTypes: 'weakNodeType=?,
+  ~edgeTypes: 'weakEdgeType=?,
+  ~connectionLineComponent: Types.connectionLineComponent=?,
   ~selectNodesOnDrag: bool=?,
   ~className: string=?,
   ~onConnectStart: Types.onConnectStartFunc=?,
@@ -76,3 +78,20 @@ module Background = {
     ~size: int=?,
   ) => React.element = "Background"
 }
+
+module Provider = {
+  @module("react-flow-renderer") @react.component
+  external make: (~children: React.element) => React.element = "ReactFlowProvider"
+}
+
+@module("react-flow-renderer")
+external useStoredAction: unit => Types.Action.t = "useStoredAction"
+
+@module("react-flow-renderer")
+external useStoreState: unit => Types.reactFlowState = "useStoreState"
+
+@module("react-flow-renderer")
+external useZoomPanHelper: unit => Types.zoomPanHelperFunctions = "useZoomPanHelper"
+
+@module("react-flow-renderer")
+external useUpdateNodeInternals: unit => Types.updateNodeInternals = "useUpdatenodeInternals"
