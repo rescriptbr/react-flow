@@ -9,6 +9,10 @@ var Controls = {};
 
 var Background = {};
 
+var Provider = {};
+
+var EdgeText = {};
+
 var Types;
 
 var Utils;
@@ -26,6 +30,8 @@ export {
   MiniMap ,
   Controls ,
   Background ,
+  Provider ,
+  EdgeText ,
   
 }
 /* No side effect */
