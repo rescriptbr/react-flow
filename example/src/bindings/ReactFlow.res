@@ -84,6 +84,20 @@ module Provider = {
   external make: (~children: React.element) => React.element = "ReactFlowProvider"
 }
 
+module EdgeText = {
+  @module("react-flow-renderer") @react.component
+  external make: (
+    ~x: int,
+    ~y: int,
+    ~label: React.element=?,
+    ~labelStyle: ReactDOM.Style.t=?,
+    ~labelShowBg: bool=?,
+    ~labelBgStyle: ReactDOM.Style.t=?,
+    ~labelBgPadding: (int, int)=?,
+    ~labelBgBorderRadius: int=?,
+  ) => React.element = "EdgeText"
+}
+
 @module("react-flow-renderer")
 external useStoredAction: unit => Types.Action.t = "useStoredAction"
 

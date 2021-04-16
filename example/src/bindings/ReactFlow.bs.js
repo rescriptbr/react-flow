@@ -11,6 +11,8 @@ var Background = {};
 
 var Provider = {};
 
+var EdgeText = {};
+
 var Types;
 
 var Utils;
@@ -29,6 +31,7 @@ export {
   Controls ,
   Background ,
   Provider ,
+  EdgeText ,
   
 }
 /* No side effect */
