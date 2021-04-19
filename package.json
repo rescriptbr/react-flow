@@ -1,9 +1,11 @@
 {
-  "name": "rescript-react-flow",
+  "name": "@rescriptbr/react-flow",
   "version": "0.1.0",
   "description": "Easily use React Flow with ReScript",
-  "repository": "git@github.com:diogomqbm/rescript-react-flow.git",
-  "author": "Diogo Mafra <diogomafra@protonmail.ch>",
+  "repository": "git@github.com:rescriptbr/react-flow.git",
+  "homepage": "https://github.com/rescriptbr/react-flow#readme",
+  "bugs": "https://github.com/rescriptbr/react-flow/issues",
+  "author": "Diogo Mafra <diogomafra@hey.com>",
   "license": "MIT",
   "devDependencies": {
     "@rescript/react": "^0.10.1",
