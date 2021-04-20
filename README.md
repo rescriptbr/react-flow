@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/logo.svg" /> 
+  <img src="./assets/logo.svg" />
   <br />
 </p>
 
@@ -12,7 +12,7 @@
 1. Install `rescript-react-flow` using npm:
 
 ```
-npm install --save @rescripbr/react-flow
+npm install --save @rescriptbr/react-flow
 ```
 
 or yarn:
