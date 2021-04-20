@@ -141,11 +141,17 @@ If you'd like to contribute, you can follow the instructions below to get things
 1. After cloning the repo, install the dependencies
 
 ```
-npm install
+yarn install
 ```
 
-2. Build and start the example server:
+2. Build:
 
 ```
-npm start
+yarn re:build
+```
+
+3. If you're running the example, in other terminal run:
+
+```
+yarn start
 ```
