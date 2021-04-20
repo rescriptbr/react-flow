@@ -1,16 +1,9 @@
 {
-  "name": "rescript-react-flow",
-  "namespace": true,
-  "bsc-flags": [
-    "-bs-super-errors"
-  ],
+  "name": "@rescriptbr/react-flow",
+  "bsc-flags": ["-bs-super-errors"],
   "version": "0.1.0",
-  "sources": [
-    "src"
-  ],
-  "bs-dependencies": [
-    "@rescript/react"
-  ],
+  "sources": ["src"],
+  "bs-dependencies": ["@rescript/react"],
   "reason": {
     "react-jsx": 3
   },
