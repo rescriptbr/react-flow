@@ -9,7 +9,7 @@
 
 ## Installation
 
-1. Install `rescript-react-flow` using npm:
+1. Install `@rescriptbr/react-flow` using npm:
 
 ```
 npm install --save @rescriptbr/react-flow
