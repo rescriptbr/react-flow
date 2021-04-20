@@ -5,9 +5,7 @@
     "react-jsx": 3
   },
   "refmt": 3,
-  "bs-dependencies": [
-    "@rescript/react"
-  ],
+  "bs-dependencies": ["@rescript/react", "@rescriptbr/react-flow"],
   "ppx-flags": [],
   "sources": [
     {
@@ -20,9 +18,5 @@
     "in-source": true
   },
   "suffix": ".bs.js",
-  "bsc-flags": [
-    "-bs-no-version-header",
-    "-bs-super-errors",
-    "-bs-g"
-  ]
+  "bsc-flags": ["-bs-no-version-header", "-bs-super-errors", "-bs-g"]
 }
