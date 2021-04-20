@@ -21,7 +21,7 @@ or yarn:
 yarn add @rescriptbr/react-flow
 ```
 
-2. Add `rescript-react-flow` as dependency to your `bsconfig.json`:
+2. Add `@rescriptbr/react-flow` as dependency to your `bsconfig.json`:
 
 ```json
 {
